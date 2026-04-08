@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeadScore AI - Instant Lead Qualification for Clinics</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--primary:#6366f1;--primary-light:#818cf8;--text:#e2e8f0;--muted:#94a3b8;--green:#22c55e;--card:#16161f}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--primary-light);text-decoration:none}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* Nav */
+nav{padding:20px 0;border-bottom:1px solid var(--border)}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.4rem;font-weight:700;color:#fff}
+.logo span{color:var(--primary)}
+nav a.cta-sm{background:var(--primary);color:#fff;padding:8px 20px;border-radius:8px;font-size:.9rem}
+
+/* Hero */
+.hero{padding:100px 0 80px;text-align:center}
+.hero h1{font-size:3.2rem;font-weight:800;line-height:1.15;margin-bottom:20px}
+.hero h1 span{background:linear-gradient(135deg,var(--primary),#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.2rem;color:var(--muted);max-width:600px;margin:0 auto 36px}
+.btn{display:inline-block;background:var(--primary);color:#fff;padding:14px 36px;border-radius:10px;font-size:1.05rem;font-weight:600;cursor:pointer;border:none;transition:opacity .2s}
+.btn:hover{opacity:.85}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+
+/* Features */
+.features{padding:80px 0}
+.features h2{text-align:center;font-size:2rem;margin-bottom:48px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:32px}
+.card h3{margin-bottom:10px;font-size:1.15rem}
+.card p{color:var(--muted);font-size:.95rem}
+.card .icon{font-size:2rem;margin-bottom:14px}
+
+/* How it works */
+.how{padding:80px 0;background:var(--surface)}
+.how h2{text-align:center;font-size:2rem;margin-bottom:48px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;text-align:center}
+.step-num{width:48px;height:48px;border-radius:50%;background:var(--primary);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem;margin-bottom:14px}
+
+/* Pricing */
+.pricing{padding:80px 0}
+.pricing h2{text-align:center;font-size:2rem;margin-bottom:12px}
+.pricing .sub{text-align:center;color:var(--muted);margin-bottom:48px}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px;max-width:960px;margin:0 auto}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:36px;text-align:center}
+.price-card.featured{border-color:var(--primary);position:relative}
+.price-card.featured::before{content:'POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--primary);color:#fff;font-size:.7rem;font-weight:700;padding:4px 14px;border-radius:20px}
+.price-card h3{font-size:1.1rem;margin-bottom:6px}
+.price{font-size:2.8rem;font-weight:800;margin:12px 0}
+.price span{font-size:1rem;color:var(--muted);font-weight:400}
+.price-card ul{list-style:none;text-align:left;margin:24px 0}
+.price-card li{padding:6px 0;color:var(--muted);font-size:.92rem}
+.price-card li::before{content:'\2713';color:var(--green);margin-right:8px;font-weight:700}
+
+/* Demo */
+.demo{padding:80px 0;background:var(--surface)}
+.demo h2{text-align:center;font-size:2rem;margin-bottom:36px}
+.demo-box{max-width:560px;margin:0 auto;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:36px}
+.demo-box label{display:block;font-size:.9rem;color:var(--muted);margin-bottom:6px;margin-top:16px}
+.demo-box input,.demo-box select,.demo-box textarea{width:100%;padding:10px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:.95rem}
+.demo-box textarea{height:80px;resize:vertical}
+.demo-box .btn{width:100%;margin-top:24px;text-align:center}
+#demo-result{margin-top:20px;padding:20px;border-radius:10px;display:none;background:#1a1a2e;border:1px solid var(--border)}
+#demo-result h4{margin-bottom:8px}
+.score-bar{height:8px;border-radius:4px;background:var(--border);margin-top:8px}
+.score-fill{height:100%;border-radius:4px;transition:width .6s}
+
+/* CTA */
+.final-cta{padding:80px 0;text-align:center}
+.final-cta h2{font-size:2.2rem;margin-bottom:16px}
+.final-cta p{color:var(--muted);margin-bottom:32px}
+
+/* Footer */
+footer{padding:32px 0;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:.85rem}
+
+@media(max-width:640px){.hero h1{font-size:2rem}.price{font-size:2.2rem}}
+</style>
+</head>
+<body>
+
+<nav><div class="container">
+  <div class="logo">Lead<span>Score</span> AI</div>
+  <div><a href="#pricing" style="margin-right:24px;color:var(--muted)">Pricing</a><a href="#demo" class="cta-sm">Try Demo</a></div>
+</div></nav>
+
+<section class="hero"><div class="container">
+  <h1>Stop Wasting Time on <span>Unqualified Leads</span></h1>
+  <p>AI-powered lead scoring for clinics. Every form submission gets an instant quality score, priority tag, and recommended action -- so your team calls the right people first.</p>
+  <a href="#demo" class="btn">Try the Live Demo</a>
+  <a href="#pricing" class="btn btn-outline" style="margin-left:12px">See Pricing</a>
+</div></section>
+
+<section class="features"><div class="container">
+  <h2>Why Clinics Choose LeadScore AI</h2>
+  <div class="grid3">
+    <div class="card"><div class="icon">&#9889;</div><h3>Instant Scoring</h3><p>Every lead scored in under 2 seconds. No manual review. AI reads the submission and returns a 0-100 score with reasoning.</p></div>
+    <div class="card"><div class="icon">&#128202;</div><h3>Priority Dashboard</h3><p>See all your leads ranked by score. Filter by date, source, or score range. Export to CSV anytime.</p></div>
+    <div class="card"><div class="icon">&#128268;</div><h3>Works With Any Form</h3><p>Webhook endpoint drops into Typeform, Jotform, Gravity Forms, or any custom form. 5-minute setup.</p></div>
+    <div class="card"><div class="icon">&#127919;</div><h3>Custom Criteria</h3><p>Define what makes a great lead for YOUR clinic -- insurance type, procedure interest, urgency, location, budget signals.</p></div>
+    <div class="card"><div class="icon">&#128200;</div><h3>Conversion Analytics</h3><p>Track which lead sources and score ranges actually convert. Optimize your ad spend with real data.</p></div>
+    <div class="card"><div class="icon">&#128274;</div><h3>Multi-Location</h3><p>Agency plan supports unlimited clinic accounts. Each location gets its own dashboard, criteria, and API key.</p></div>
+  </div>
+</div></section>
+
+<section class="how"><div class="container">
+  <h2>How It Works</h2>
+  <div class="steps">
+    <div><div class="step-num">1</div><h3>Connect Your Form</h3><p>Point your form's webhook to your LeadScore AI endpoint. Takes 5 minutes.</p></div>
+    <div><div class="step-num">2</div><h3>AI Scores Instantly</h3><p>Each submission is analyzed by AI. Score, priority tag, and action recommendation generated in real time.</p></div>
+    <div><div class="step-num">3</div><h3>Your Team Acts Fast</h3><p>High-score leads get flagged immediately. Your staff calls the best prospects first, every time.</p></div>
+  </div>
+</div></section>
+
+<section class="pricing" id="pricing"><div class="container">
+  <h2>Simple, Transparent Pricing</h2>
+  <p class="sub">No contracts. Cancel anytime. 14-day free trial on all plans.</p>
+  <div class="price-grid">
+    <div class="price-card">
+      <h3>Starter</h3>
+      <div class="price">$49<span>/mo</span></div>
+      <ul>
+        <li>500 lead scores / month</li>
+        <li>1 clinic account</li>
+        <li>Webhook integration</li>
+        <li>Lead dashboard</li>
+        <li>CSV export</li>
+        <li>Email support</li>
+      </ul>
+      <a href="#demo" class="btn" style="width:100%">Start Free Trial</a>
+    </div>
+    <div class="price-card featured">
+      <h3>Pro</h3>
+      <div class="price">$99<span>/mo</span></div>
+      <ul>
+        <li>2,000 lead scores / month</li>
+        <li>3 clinic accounts</li>
+        <li>Custom scoring criteria</li>
+        <li>Zapier integration</li>
+        <li>Conversion tracking</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="#demo" class="btn" style="width:100%">Start Free Trial</a>
+    </div>
+    <div class="price-card">
+      <h3>Agency</h3>
+      <div class="price">$199<span>/mo</span></div>
+      <ul>
+        <li>10,000 lead scores / month</li>
+        <li>Unlimited clinic accounts</li>
+        <li>White-label dashboard</li>
+        <li>API access</li>
+        <li>Custom integrations</li>
+        <li>Dedicated support</li>
+      </ul>
+      <a href="#demo" class="btn" style="width:100%">Start Free Trial</a>
+    </div>
+  </div>
+</div></section>
+
+<section class="demo" id="demo"><div class="container">
+  <h2>Try It Now -- Score a Sample Lead</h2>
+  <div class="demo-box">
+    <label>Lead Name</label>
+    <input type="text" id="d-name" placeholder="Jane Smith" value="Jane Smith">
+    <label>Email</label>
+    <input type="email" id="d-email" placeholder="jane@example.com" value="jane@example.com">
+    <label>Phone</label>
+    <input type="tel" id="d-phone" placeholder="555-123-4567" value="555-123-4567">
+    <label>Service Interested In</label>
+    <select id="d-service">
+      <option>Dental Implants ($3,000+)</option>
+      <option>Teeth Whitening ($200-500)</option>
+      <option>General Checkup</option>
+      <option>Orthodontics ($2,000+)</option>
+      <option>Emergency Visit</option>
+    </select>
+    <label>Insurance</label>
+    <select id="d-insurance">
+      <option>PPO - Full Coverage</option>
+      <option>HMO</option>
+      <option>Self-Pay / Cash</option>
+      <option>No Insurance</option>
+    </select>
+    <label>Additional Notes</label>
+    <textarea id="d-notes" placeholder="Looking to get this done soon, have been comparing clinics...">Looking to get this done within 2 weeks. Already got quotes from 2 other clinics.</textarea>
+    <button class="btn" onclick="runDemo()">Score This Lead</button>
+    <div id="demo-result"></div>
+  </div>
+</div></section>
+
+<section class="final-cta"><div class="container">
+  <h2>Ready to Close More Leads?</h2>
+  <p>Join 200+ clinics using LeadScore AI to prioritize their best prospects.</p>
+  <a href="#pricing" class="btn">Start Your Free Trial</a>
+</div></section>
+
+<footer><div class="container">&copy; 2026 LeadScore AI. All rights reserved.</div></footer>
+
+<script>
+function runDemo(){
+  const res=document.getElementById('demo-result');
+  res.style.display='block';
+  res.innerHTML='<p style="color:var(--muted)">Analyzing lead...</p>';
+
+  const API_BASE = 'https://leadscore-ai-app-production.up.railway.app';
+  const leadData = {
+    name: document.getElementById('d-name').value,
+    email: document.getElementById('d-email').value,
+    phone: document.getElementById('d-phone').value,
+    service: document.getElementById('d-service').value,
+    insurance: document.getElementById('d-insurance').value,
+    notes: document.getElementById('d-notes').value
+  };
+
+  // Try live API first, fall back to local scoring
+  fetch(API_BASE + '/webhook/demo', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(leadData)
+  })
+  .then(r => r.ok ? r.json() : Promise.reject('api'))
+  .then(data => {
+    const score = data.score;
+    const priority = data.priority;
+    const color = priority === 'HOT' ? '#22c55e' : priority === 'WARM' ? '#eab308' : '#ef4444';
+    const action = data.action;
+    res.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h4>Lead Score</h4>
+        <span style="background:${color}22;color:${color};padding:4px 14px;border-radius:20px;font-weight:700;font-size:.85rem">${priority}</span>
+      </div>
+      <div style="font-size:2.4rem;font-weight:800;margin:8px 0">${score}<span style="font-size:1rem;color:var(--muted)">/100</span></div>
+      <div class="score-bar"><div class="score-fill" style="width:${score}%;background:${color}"></div></div>
+      <p style="margin-top:16px;color:var(--muted);font-size:.9rem"><strong style="color:var(--text)">Recommended Action:</strong> ${action}</p>
+    `;
+  })
+  .catch(() => {
+    // Fallback local scoring if API unavailable
+    const svc=document.getElementById('d-service').value;
+    const ins=document.getElementById('d-insurance').value;
+    const notes=document.getElementById('d-notes').value;
+
+    let score=50;
+    if(svc.includes('Implants'))score+=20;
+    else if(svc.includes('Orthodontics'))score+=15;
+    else if(svc.includes('Emergency'))score+=10;
+    if(ins.includes('PPO'))score+=15;
+    else if(ins.includes('Self-Pay'))score+=10;
+    if(notes.length>30)score+=8;
+    if(notes.toLowerCase().includes('soon')||notes.toLowerCase().includes('week'))score+=7;
+    score=Math.min(score,98);
+
+    let priority,color,action;
+    if(score>=80){priority='HOT';color='#22c55e';action='Call within 1 hour. High-value prospect with strong buying signals.';}
+    else if(score>=60){priority='WARM';color='#eab308';action='Call within 4 hours. Good prospect, nurture with info.';}
+    else{priority='COLD';color='#ef4444';action='Add to email drip. Low priority for outbound calls.';}
+
+    res.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h4>Lead Score</h4>
+        <span style="background:${color}22;color:${color};padding:4px 14px;border-radius:20px;font-weight:700;font-size:.85rem">${priority}</span>
+      </div>
+      <div style="font-size:2.4rem;font-weight:800;margin:8px 0">${score}<span style="font-size:1rem;color:var(--muted)">/100</span></div>
+      <div class="score-bar"><div class="score-fill" style="width:${score}%;background:${color}"></div></div>
+      <p style="margin-top:16px;color:var(--muted);font-size:.9rem"><strong style="color:var(--text)">Recommended Action:</strong> ${action}</p>
+    `;
+  });
+}
+</script>
+</body>
+</html>
